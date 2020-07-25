@@ -39,7 +39,13 @@ Lambda serverless instance would need to be configured to set the x-frame-option
 
 
 
+---
+### **Finding**: Content Security Policy (CSP) Header Not Set
+Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting (XSS) and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page — covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.
 
+**Risk**: Low
+
+**Remediation Recommendation**: The AWS Lambda serverless instance should be configured to set the Content-Security-Policy header, to achieve optimal browser support: "Content-Security-Policy" for Chrome 25+, Firefox 23+ and Safari 7+, "X-Content-Security-Policy" for Firefox 4.0+ and Internet Explorer 10+, and "X-WebKit-CSP" for Chrome 14+ and Safari 6+.
 
 
 ---
@@ -48,8 +54,7 @@ The Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. T
 
 **Risk**: Low
 
-**Remediation Recommendation**: this vulnerability does not present risk to NYU. However to clean this vulnerability up, our AWS 
-Lambda serverless instance would need to be configured to set the X-Content-Type-Options header to 'nosniff' for all web pages. If possible, ensure that the end user uses a standards-compliant and modern web browser that does not perform MIME-sniffing at all, or that can be directed by the web application/web server to not perform MIME-sniffing.
+**Remediation Recommendation**: The AWS Lambda serverless instance should be configured to set the X-Content-Type-Options header to 'nosniff' for all web pages. If possible, ensure that the end user uses a standards-compliant and modern web browser that does not perform MIME-sniffing at all, or that can be directed by the web application/web server to not perform MIME-sniffing.
 
 
 ---
