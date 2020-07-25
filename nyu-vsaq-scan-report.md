@@ -36,8 +36,13 @@ Lambda serverless instance would need to be configured to set the x-frame-option
 
 
 
+---
+### **Finding**: Cross-Domain JavaScript Source File Inclusion
+The page includes one or more script files from a third-party domain.
 
+**Risk**: Low
 
+**Remediation Recommendation**: This finding does not affect the VSAQ instance as we ensure JavaScript source files are loaded from only trusted sources, and the sources can't be controlled by end users of the application.
 
 ---
 ### **Finding**: Content Security Policy (CSP) Header Not Set
