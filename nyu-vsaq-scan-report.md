@@ -27,8 +27,11 @@ However Google VASQ is a web application implemented entirely client side using 
 authentication; rather it exports it locally in the browser to a JSON object which is sent to NYU via PGP encrypted email.Correspondingly 
 click jacking vulnerabilities do not pose a risk to this web application. 
 
-**Remediation Recommendation**:As noted above, this vulnerability does not present risk to NYU. However to clean this vulnerability up, our AWS 
-Lambda serverless instance would need to be configured to set the x-frame-option. 
+**Remediation Recommendation**: However Google VASQ is a web application implemented entirely client side using java script. The web 
+application keepstrack of no state or authentication; rather it exports it locally in the browser to a JSON object which is sent to NYU 
+via PGP encrypted email. Correspondingly click jacking vulnerabilities do not pose a risk to this web application. Consequently, this 
+vulnerability does not present risk to NYU. However to address this vulnerability would require that the AWS Lambda serverless instance 
+would need to be configured to set the x-frame-option. 
 
 
 
