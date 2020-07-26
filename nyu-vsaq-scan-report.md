@@ -29,8 +29,9 @@ application keeps track of no state or authentication; rather it exports it loca
 via PGP encrypted email. Correspondingly click jacking vulnerabilities do not pose a risk to this web application. Consequently, this
 vulnerability does not present risk to NYU. However to address this vulnerability would require that the AWS Lambda serverless instance
 would need to be configured to set the x-frame-option.
----
 
+
+---
 ### **Finding**: Server Leaks Version Information via "Server" HTTP Response Header Field
 The web/application server is leaking version information via the "Server" HTTP response header. Access
 to such information may facilitate attackers identifying other vulnerabilities your web/application server
@@ -43,8 +44,9 @@ value "sffe" in the "Server" field of the http headers. This is a standard hardc
 services use and does not reveal any information about the webserver's version or vulnerabilities. However
 to address this finding would require that the AWS Lambda serverless instance would need to be configured
 to remove the Server HTTP Response header.
----
 
+
+---
 ### **Finding**: Absence of Anti-CSRF Tokens
 
 **Risk**: Low
@@ -54,13 +56,14 @@ submitting a webrequest (typically leveraging a authenticate web session/HTTP co
 does not maintain any state or authentication capabiliites, fraudulent web requests to the web application
 cannot result in an inappropriate disclosure of information or modification of data integrity.
 
----
 
+---
 ### **Finding**: Web Browser XSS Protection Not Enabled
 
 **Risk**: Low
 
 **Remediation Recommendation**: Per OWASP, the X-XSS-Protection header has been deprecated by modern browsers.
+
 
 ---
 ### **Finding**: Cross-Domain JavaScript Source File Inclusion
@@ -69,6 +72,7 @@ The page includes one or more script files from a third-party domain.
 **Risk**: Low
 
 **Remediation Recommendation**: This finding does not affect the VSAQ instance as we ensure JavaScript source files are loaded from only trusted sources, and the sources can't be controlled by end users of the application.
+
 
 ---
 ### **Finding**: Content Security Policy (CSP) Header Not Set
