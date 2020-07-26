@@ -1,40 +1,66 @@
 # Appendix: ZAP Scanning Report
 
-## Introduction 
-The Zed Attack Proxy (ZAP) is an open source web application security scanner which can be used to help security analysts to find security 
-vulnerabilities in web applications. ZAP is supported by OWASP® (Open Web Application Security Project) and is an OWASP Flagship project. 
-Oceans Eleven used ZAP to assess the risk posture of Google’s Vendor Security Assessment Questionnaire (VSAQ) software and find applicable 
+## Introduction
+The Zed Attack Proxy (ZAP) is an open source web application security scanner which can be used to help security analysts to find security
+vulnerabilities in web applications. ZAP is supported by OWASP® (Open Web Application Security Project) and is an OWASP Flagship project.
+Oceans Eleven used ZAP to assess the risk posture of Google’s Vendor Security Assessment Questionnaire (VSAQ) software and find applicable
 vulnerabilities. The following document provides a risk analysis of the scan results.
 
 ## Scan Results
 ZAP found a total of 8 Alerts:
-| Risk Level | Number of Alerts | 
+| Risk Level | Number of Alerts |
 | --- | --- |
 | High | 0 |
-| Medium | 1 | 
+| Medium | 1 |
 | Low | 6 |
 | Informational| 1 |
 
 ---
 ### **Finding**: X-Frame-Options Header Not Set
-The X-Frame-Option is a HTTP response header which tells the browser whether or not it should allow the website to be rendered within in a 
-frame, iframe, embed, or object. Click jacking can occur as a result of this if a malicious site embeds a link in, say an iframe, with a link 
-overlaid which appears to be some other content. The result is that the click comes from theUser’s origin and can perform unauthorized actions 
+The X-Frame-Option is a HTTP response header which tells the browser whether or not it should allow the website to be rendered within in a
+frame, iframe, embed, or object. Click jacking can occur as a result of this if a malicious site embeds a link in, say an iframe, with a link
+overlaid which appears to be some other content. The result is that the click comes from theUser’s origin and can perform unauthorized actions
 on the behalf of the user (potentially authenticated via a http session cookie).
 
-**Risk**: Medium. 
+**Risk**: Medium
 
-**Remediation Recommendation**: However Google VASQ is a web application implemented entirely client side using java script. The web 
-application keepstrack of no state or authentication; rather it exports it locally in the browser to a JSON object which is sent to NYU 
-via PGP encrypted email. Correspondingly click jacking vulnerabilities do not pose a risk to this web application. Consequently, this 
-vulnerability does not present risk to NYU. However to address this vulnerability would require that the AWS Lambda serverless instance 
-would need to be configured to set the x-frame-option. 
+**Remediation Recommendation**: Google VASQ is a web application implemented entirely client side using java script. The web
+application keeps track of no state or authentication; rather it exports it locally in the browser to a JSON object which is sent to NYU
+via PGP encrypted email. Correspondingly click jacking vulnerabilities do not pose a risk to this web application. Consequently, this
+vulnerability does not present risk to NYU. However to address this vulnerability would require that the AWS Lambda serverless instance
+would need to be configured to set the x-frame-option.
+---
 
+### **Finding**: Server Leaks Version Information via "Server" HTTP Response Header Field
+The web/application server is leaking version information via the "Server" HTTP response header. Access
+to such information may facilitate attackers identifying other vulnerabilities your web/application server
+is subject to.
 
+**Risk**: Low
 
+**Remediation Recommendation**: Evaluation of this finding reveals the web server is responding with the
+value "sffe" in the "Server" field of the http headers. This is a standard hardcoded string many Google
+services use and does not reveal any information about the webserver's version or vulnerabilities. However
+to address this finding would require that the AWS Lambda serverless instance would need to be configured
+to remove the Server HTTP Response header.
+---
 
+### **Finding**: Absence of Anti-CSRF Tokens
 
+**Risk**: Low
 
+**Remediation Recommendation**: Cross Site Request Forgery is an attack which manipulates a user into
+submitting a webrequest (typically leveraging a authenticate web session/HTTP cookie). Since VSAQ
+does not maintain any state or authentication capabiliites, fraudulent web requests to the web application
+cannot result in an inappropriate disclosure of information or modification of data integrity.
+
+---
+
+### **Finding**: Web Browser XSS Protection Not Enabled
+
+**Risk**: Low
+
+**Remediation Recommendation**: Per OWASP, the X-XSS-Protection header has been deprecated by modern browsers.
 
 ---
 ### **Finding**: Cross-Domain JavaScript Source File Inclusion
