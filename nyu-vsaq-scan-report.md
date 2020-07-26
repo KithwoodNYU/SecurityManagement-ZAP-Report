@@ -23,9 +23,6 @@ overlaid which appears to be some other content. The result is that the click co
 on the behalf of the user (potentially authenticated via a http session cookie).
 
 **Risk**: Medium. 
-However Google VASQ is a web application implemented entirely client side using java script. The web application keepstrack of no state or 
-authentication; rather it exports it locally in the browser to a JSON object which is sent to NYU via PGP encrypted email.Correspondingly 
-click jacking vulnerabilities do not pose a risk to this web application. 
 
 **Remediation Recommendation**: However Google VASQ is a web application implemented entirely client side using java script. The web 
 application keepstrack of no state or authentication; rather it exports it locally in the browser to a JSON object which is sent to NYU 
